@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
                 is Resource.Loading -> binding.loginButton.isEnabled = false
                 is Resource.Success -> {
                     binding.loginButton.isEnabled = true
-//                    findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
                 }
                 is Resource.Error -> {
                     binding.loginButton.isEnabled = true

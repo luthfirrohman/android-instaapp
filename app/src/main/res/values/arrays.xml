@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="access_levels">
+        <item>@string/option_access_public</item>
+        <item>@string/option_access_followers</item>
+        <item>@string/option_access_private</item>
+    </string-array>
+</resources>

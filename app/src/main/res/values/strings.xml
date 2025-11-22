@@ -12,4 +12,23 @@
     <string name="title_register">Create an account</string>
     <string name="subtitle_register">Create an account and join the stories.</string>
     <string name="subtitle_login">Capture moments from anywhere.</string>
+    <string name="message_logout_success">You have been logged out</string>
+    <string name="action_publish">Publish</string>
+    <string name="title_create_post">Create Post</string>
+    <string name="feed_empty">No posts yet. Be the first to share something!</string>
+    <string name="desc_like_button">Like post</string>
+    <string name="desc_comment_button">Comment on post</string>
+    <string name="label_comments">Comments</string>
+    <string name="label_likes">%1$d likes</string>
+    <string name="label_comments_count">%1$d comments</string>
+    <string name="option_access_public">Public</string>
+    <string name="option_access_followers">Followers only</string>
+    <string name="option_access_private">Only me</string>
+    <string name="hint_caption">Share what is happening?</string>
+    <string name="action_choose_media">Choose Media</string>
+    <string name="label_media_type">Media Type</string>
+    <string name="option_media_photo">Photo</string>
+    <string name="option_media_video">Video</string>
+    <string name="label_access_level">Access Level</string>
+    <string name="message_post_created">Post published</string>
 </resources>
