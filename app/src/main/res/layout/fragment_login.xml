@@ -8,7 +8,7 @@
     <View
         android:id="@+id/gradientHero"
         android:layout_width="0dp"
-        android:layout_height="260dp"
+        android:layout_height="match_parent"
         android:background="@drawable/bg_gradient_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,20 +18,20 @@
         android:id="@+id/heroText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="80dp"
         android:text="@string/title_login"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gradientHero"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="32dp"/>
 
     <TextView
         android:id="@+id/heroSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="100dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:text="@string/subtitle_login"
@@ -52,9 +52,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gradientHero">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/card_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -119,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/action_register"
-                    android:textColor="@color/color_on_primary"
+                    android:textColor="@color/color_on_surface"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

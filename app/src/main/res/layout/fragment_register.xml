@@ -8,7 +8,7 @@
     <View
         android:id="@+id/registerHero"
         android:layout_width="0dp"
-        android:layout_height="240dp"
+        android:layout_height="200dp"
         android:background="@drawable/bg_gradient_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerHero">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
