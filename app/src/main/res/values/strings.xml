@@ -31,4 +31,9 @@
     <string name="option_media_video">Video</string>
     <string name="label_access_level">Access Level</string>
     <string name="message_post_created">Post published</string>
+    <string name="hint_comment">Add a comment...</string>
+    <string name="title_post_detail">Post Details</string>
+    <string name="action_retry">Retry</string>
+    <string name="title_media_viewer">Media</string>
+    <string name="message_video_error">Unable to play this video</string>
 </resources>

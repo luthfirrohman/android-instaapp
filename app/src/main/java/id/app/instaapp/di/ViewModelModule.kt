@@ -9,6 +9,7 @@ import id.app.instaapp.ui.InstaViewModelFactory
 import id.app.instaapp.ui.auth.AuthViewModel
 import id.app.instaapp.ui.feed.FeedViewModel
 import id.app.instaapp.ui.postcreate.CreatePostViewModel
+import id.app.instaapp.ui.postdetail.PostDetailViewModel
 
 
 @Module
@@ -31,4 +32,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CreatePostViewModel::class)
     abstract fun bindCreatePostViewModel(viewModel: CreatePostViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostDetailViewModel::class)
+    abstract fun bindPostDetailViewModel(viewModel: PostDetailViewModel): ViewModel
 }

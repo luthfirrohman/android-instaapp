@@ -89,7 +89,7 @@ class FeedFragment : Fragment(), PostInteractionListener {
             putString("mediaUrl", post.mediaUrl ?: "")
             putString("mediaType", post.mediaType.name)
         }
-//        findNavController().navigate(R.id.action_feedFragment_to_postDetailFragment, directions)
+        findNavController().navigate(R.id.action_feedFragment_to_postDetailFragment, directions)
     }
 
     override fun onOpenMedia(post: Post) {
