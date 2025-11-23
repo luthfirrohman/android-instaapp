@@ -91,8 +91,20 @@ class PostDetailFragment : Fragment() {
             commentAdapter.submitList(comments)
         }
         viewModel.commentState.observe(viewLifecycleOwner) { state ->
-            if (state is Resource.Error) {
-                Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+            when (state) {
+                is Resource.Loading -> {
+                    binding.commentProgress.visibility = View.VISIBLE
+                    binding.sendCommentButton.isEnabled = false
+                }
+                is Resource.Error -> {
+                    binding.commentProgress.visibility = View.GONE
+                    binding.sendCommentButton.isEnabled = true
+                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Success, null -> {
+                    binding.commentProgress.visibility = View.GONE
+                    binding.sendCommentButton.isEnabled = true
+                }
             }
         }
     }

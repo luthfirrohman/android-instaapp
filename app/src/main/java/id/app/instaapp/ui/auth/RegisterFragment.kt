@@ -44,13 +44,18 @@ class RegisterFragment : Fragment() {
     private fun observeState() {
         authViewModel.registerState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is Resource.Loading -> binding.registerButton.isEnabled = false
+                is Resource.Loading -> {
+                    binding.registerButton.isEnabled = false
+                    binding.registerProgress.visibility = View.VISIBLE
+                }
                 is Resource.Success -> {
                     binding.registerButton.isEnabled = true
+                    binding.registerProgress.visibility = View.GONE
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is Resource.Error -> {
                     binding.registerButton.isEnabled = true
+                    binding.registerProgress.visibility = View.GONE
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                 }
                 else -> Unit

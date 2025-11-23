@@ -43,15 +43,19 @@ class LoginFragment : Fragment() {
     private fun observeState() {
         authViewModel.loginState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is Resource.Loading -> binding.loginButton.isEnabled = false
+                is Resource.Loading -> {
+                    binding.loginButton.isEnabled = false
+                    binding.loginProgress.visibility = View.VISIBLE
+                }
                 is Resource.Success -> {
                     binding.loginButton.isEnabled = true
+                    binding.loginProgress.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
                 }
                 is Resource.Error -> {
                     binding.loginButton.isEnabled = true
-//                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
-                    Toast.makeText(requireContext(), "Kredensial tidak valid", Toast.LENGTH_SHORT).show()
+                    binding.loginProgress.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Kredensial salah", Toast.LENGTH_SHORT).show()
                 }
                 null -> Unit
             }

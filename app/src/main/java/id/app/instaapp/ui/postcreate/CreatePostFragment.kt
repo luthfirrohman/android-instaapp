@@ -84,14 +84,19 @@ class CreatePostFragment : Fragment() {
     private fun observeState() {
         viewModel.createState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is Resource.Loading -> binding.publishButton.isEnabled = false
+                is Resource.Loading -> {
+                    binding.publishButton.isEnabled = false
+                    binding.createProgress.visibility = View.VISIBLE
+                }
                 is Resource.Success -> {
                     binding.publishButton.isEnabled = true
+                    binding.createProgress.visibility = View.GONE
                     Toast.makeText(requireContext(), R.string.message_post_created, Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_createPostFragment_to_feedFragment)
                 }
                 is Resource.Error -> {
                     binding.publishButton.isEnabled = true
+                    binding.createProgress.visibility = View.GONE
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                 }
                 else -> Unit

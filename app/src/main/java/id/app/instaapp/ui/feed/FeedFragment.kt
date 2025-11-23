@@ -66,6 +66,7 @@ class FeedFragment : Fragment(), PostInteractionListener {
             }
         }
         feedViewModel.interactionState.observe(viewLifecycleOwner) { state ->
+            binding.interactionProgress.isVisible = state is Resource.Loading
             if (state is Resource.Error) {
                 Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
             }
