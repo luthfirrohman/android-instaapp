@@ -1,11 +1,14 @@
 package id.app.instaapp.ui.mediaviewer
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
@@ -14,6 +17,11 @@ import com.google.android.exoplayer2.Player
 import id.app.instaapp.R
 import id.app.instaapp.data.model.MediaType
 import id.app.instaapp.databinding.FragmentMediaViewerBinding
+import java.io.File
+import java.net.URL
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MediaViewerFragment : Fragment() {
 
@@ -51,8 +59,7 @@ class MediaViewerFragment : Fragment() {
         if (mediaType == MediaType.VIDEO) {
             binding.viewerImage.visibility = View.GONE
             binding.viewerVideo.visibility = View.VISIBLE
-            binding.viewerLoading.visibility = View.VISIBLE
-            initializePlayer(mediaUrl)
+            prepareVideo(mediaUrl)
         } else {
             binding.viewerVideo.visibility = View.GONE
             binding.viewerImage.visibility = View.VISIBLE
@@ -71,11 +78,29 @@ class MediaViewerFragment : Fragment() {
         const val ARG_MEDIA_TYPE = "mediaType"
     }
 
-    private fun initializePlayer(url: String) {
+    private fun prepareVideo(url: String) {
+        val cacheFile = getCachedVideoFile(url)
+        if (cacheFile.exists()) {
+            initializePlayer(cacheFile.toUri())
+        } else {
+            binding.viewerLoading.visibility = View.VISIBLE
+            viewLifecycleOwner.lifecycleScope.launch {
+                val result = withContext(Dispatchers.IO) { runCatching { downloadVideo(url, cacheFile) } }
+                if (result.isSuccess) {
+                    initializePlayer(cacheFile.toUri())
+                } else {
+                    binding.viewerLoading.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.message_video_error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun initializePlayer(uri: Uri) {
         releasePlayer()
         player = ExoPlayer.Builder(requireContext()).build().also { exoPlayer ->
             binding.viewerVideo.player = exoPlayer
-            val mediaItem = MediaItem.fromUri(url)
+            val mediaItem = MediaItem.fromUri(uri)
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.playWhenReady = true
             exoPlayer.repeatMode = ExoPlayer.REPEAT_MODE_ONE
@@ -99,5 +124,19 @@ class MediaViewerFragment : Fragment() {
         player?.release()
         player = null
         binding.viewerVideo.player = null
+    }
+
+    private fun getCachedVideoFile(url: String): File {
+        val fileName = "video_${url.hashCode()}.mp4"
+        return File(requireContext().cacheDir, fileName)
+    }
+
+    @Throws(Exception::class)
+    private fun downloadVideo(url: String, destination: File) {
+        URL(url).openStream().use { input ->
+            destination.outputStream().use { output ->
+                input.copyTo(output)
+            }
+        }
     }
 }
