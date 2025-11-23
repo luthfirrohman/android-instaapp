@@ -98,7 +98,7 @@ class FeedFragment : Fragment(), PostInteractionListener {
             putString("mediaUrl", mediaUrl)
             putString("mediaType", post.mediaType.name)
         }
-//        findNavController().navigate(R.id.action_feedFragment_to_mediaViewerFragment, args)
+        findNavController().navigate(R.id.action_feedFragment_to_mediaViewerFragment, args)
     }
 
     override fun onDestroyView() {
